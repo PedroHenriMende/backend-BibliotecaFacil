@@ -2,14 +2,16 @@
 class Emprestimo {
     // Atributos privados da classe que armazenam os detalhes do empréstimo
     private idEmprestimo: number = 0;  // Identificador único do empréstimo
-    private idAluno: string;       // Identificador único do aluno
-    private idLivro: string;       // Identificador único do livro
+    private idAluno: number;       // Identificador único do aluno
+    private idLivro: number;       // Identificador único do livro
     private dataEmprestimo: Date;  // Data do início do empréstimo
     private dataDevolucao: Date;   // Data prevista ou efetiva da devolução do livro
     private statusEmprestimo: Date;  // Status do empréstimo (melhor representado como um enum, mas aqui está como Date)
 
     // Construtor da classe que inicializa os atributos quando uma nova instância de Emprestimo é criada
-    constructor(idEmprestimo: number, idAluno: string, idLivro: string, dataEmprestimo: Date, dataDevolucao: Date, statusEmprestimo: Date) {
+    constructor(idEmprestimo: number, idAluno: number, idLivro: number, dataEmprestimo: Date, dataDevolucao: Date, statusEmprestimo: Date) {
+        this.idLivro = idAluno;  
+        this.idAluno = idLivro;
         this.dataEmprestimo = dataEmprestimo;          // Atribui a data do empréstimo
         this.dataDevolucao = dataDevolucao;            // Atribui a data de devolução
         this.statusEmprestimo = statusEmprestimo;      // Atribui o status do empréstimo
@@ -28,22 +30,22 @@ class Emprestimo {
     }
 
     // Retorna o identificador do aluno que fez o empréstimo
-    public getIdAluno(): string {
+    public getIdAluno(): number {
         return this.idAluno;
     }
 
     // Define o identificador do aluno
-    public setIdAluno(idAluno: string): void {
+    public setIdAluno(idAluno: number): void {
         this.idAluno = idAluno;
     }
 
     // Retorna o identificador do livro emprestado
-    public getIdLivro(): string {
+    public getIdLivro(): number {
         return this.idLivro;
     }
 
     // Define o identificador do livro
-    public setIdLivro(idLivro: string): void {
+    public setIdLivro(idLivro: number): void {
         this.idLivro = idLivro;
     }
 
