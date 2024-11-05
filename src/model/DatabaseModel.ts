@@ -1,75 +1,65 @@
 import pg from 'pg';
 import dotenv from 'dotenv';
 
+// Carrega as variáveis de ambiente do arquivo .env
 dotenv.config();
 
 /**
  * Classe que representa o modelo de banco de dados.
  */
 export class DatabaseModel {
-    
-    /**
-     * Configuração para conexão com o banco de dados
-     */
-    private _config: object;
 
-    /**
-     * Pool de conexões com o banco de dados
-     */
-    private _pool: pg.Pool;
-
-    /**
-     * Cliente de conexão com o banco de dados
-     */
-    private _client: pg.Client;
+    private _config: object;       // Configurações de conexão com o banco de dados
+    private _pool: pg.Pool;        // Pool de conexões com o banco de dados
+    private _client: pg.Client;    // Cliente de conexão direta com o banco
 
     /**
      * Construtor da classe DatabaseModel.
+     * Inicializa as configurações de conexão, o pool e o cliente.
      */
     constructor() {
-        // Configuração padrão para conexão com o banco de dados
+        // Configuração de conexão usando variáveis de ambiente
         this._config = {
-            user: process.env.DB_USER,
-            host: process.env.DB_HOST,
-            database: process.env.DB_NAME,
-            password: process.env.DB_PASSWORD,
-            port: process.env.DB_PORT,
-            max: 10,
-            idleTimoutMillis: 10000
-        }
+            user: process.env.DB_USER,         // Nome do usuário do banco
+            host: process.env.DB_HOST,         // Host do banco
+            database: process.env.DB_NAME,     // Nome do banco de dados
+            password: process.env.DB_PASSWORD, // Senha do banco
+            port: process.env.DB_PORT,         // Porta do banco
+            max: 10,                           // Máximo de conexões no pool
+            idleTimeoutMillis: 10000           // Tempo máximo de ociosidade em ms
+        };
 
-        // Inicialização do pool de conexões
+        // Inicializa o pool de conexões com a configuração
         this._pool = new pg.Pool(this._config);
 
-        // Inicialização do cliente de conexão
+        // Inicializa o cliente de conexão direta com o banco
         this._client = new pg.Client(this._config);
     }
 
     /**
-     * Método para testar a conexão com o banco de dados.
+     * Testa a conexão com o banco de dados.
      *
-     * @returns **true** caso a conexão tenha sido feita, **false** caso negativo
+     * @returns `true` se a conexão for bem-sucedida, `false` em caso de erro.
      */
-    public async testeConexao() {
+    public async testeConexao(): Promise<boolean> {
         try {
-            // Tenta conectar ao banco de dados
+            // Conecta ao banco usando o cliente
             await this._client.connect();
             console.log('Database connected!');
-            // Encerra a conexão
-            this._client.end();
+            // Encerra a conexão ao final do teste
+            await this._client.end();
             return true;
         } catch (error) {
-            // Em caso de erro, exibe uma mensagem de erro
+            // Em caso de erro, exibe a mensagem e encerra a conexão
             console.log('Error to connect database X( ');
             console.log(error);
-            // Encerra a conexão
-            this._client.end();
+            await this._client.end();
             return false;
         }
     }
 
     /**
-     * Getter para o pool de conexões.
+     * Getter para o pool de conexões, permitindo acesso externo ao pool.
      */
     public get pool() {
         return this._pool;

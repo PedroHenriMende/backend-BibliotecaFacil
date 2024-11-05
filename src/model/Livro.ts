@@ -38,7 +38,7 @@ export class Livro {
      * @param editora Editora do livro
      * @param anoPublicacao Ano de publicação do livro
      * @param isbn ISBN do livro
-     * @param quantTotal Quantidade total de exemplares
+     * @param quantTotal Quantidade total de exemplaresx
      * @param quantDisponivel Quantidade disponível de exemplares
      * @param valorAquisicao Valor de aquisição do livro
      * @param statusLivroEmprestado Status do livro quanto a empréstimos
