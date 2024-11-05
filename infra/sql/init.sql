@@ -100,7 +100,7 @@ VALUES
 ('O Morro dos Ventos Uivantes', 'Emily Brontë', 'Penguin Classics', '1847', '978-0141439556', 8, 8, 95.00, 'Disponível'),
 ('O Estrangeiro', 'Albert Camus', 'Companhia das Letras', '1942', '978-8535917486', 10, 10, 85.00, 'Disponível'),
 ('As Aventuras de Sherlock Holmes', 'Arthur Conan Doyle', 'HarperCollins', '1892', '978-0007350896', 6, 6, 100.00, 'Disponível'),
-('Drácula', 'Bram Stoker', 'Penguin Classics', '1897', '978-0141439846', 7, 7, 130.00, 'Disponível');
+('Drácula', 'Bram Stoker', 'Pengu1in Classics', '1897', '978-0141439846', 7, 7, 130.00, 'Disponível');
 
 
 -- Inserindo Emprestimos
