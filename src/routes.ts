@@ -31,7 +31,7 @@ router.post("/novo/aluno", AlunoController.cadastro);
 * ROTAS PARA EMPRÉSTIMOS
 */ 
 // Rota para listar os empréstimos
-router.get("/lista/emprestimos", EmprestimoController.lista);
+router.get("/lista/emprestimo", EmprestimoController.lista);
 
 //Exportando as rotas
 export { router };
