@@ -3,6 +3,7 @@ import { Aluno } from "../model/Aluno";
 
 // Definição de uma interface que descreve os dados necessários para criar um aluno.
 interface AlunoDTO {
+    ra: string,
     nome: string,
     sobrenome: string,
     dataNascimento: Date,
@@ -59,6 +60,7 @@ export class AlunoController extends Aluno {
 
             // Cria uma nova instância da classe Aluno com os dados recebidos.
             const novoAluno = new Aluno(
+                alunoRecebido.ra,
                 alunoRecebido.nome,
                 alunoRecebido.sobrenome,
                 alunoRecebido.dataNascimento,

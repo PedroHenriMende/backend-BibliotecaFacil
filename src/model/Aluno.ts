@@ -10,7 +10,7 @@ export class Aluno {
 
     /* Atributos */
     private idAluno: number = 0;          // Identificador do aluno
-    private raAluno: string = "";          // RA do aluno
+    private raAluno: string = '';          // RA do aluno
     private nome: string;                  // Nome do aluno
     private sobrenome: string;             // Sobrenome do aluno
     private dataNascimento: Date;          // Data de nascimento do aluno
@@ -20,7 +20,7 @@ export class Aluno {
 
     /**
      * Construtor da classe Aluno.
-     * 
+     * @param ra RA do aluno
      * @param nome Nome do aluno 
      * @param sobrenome Sobrenome do aluno
      * @param dataNascimento Data de nascimento do aluno
@@ -29,6 +29,7 @@ export class Aluno {
      * @param celular Celular do aluno
      */
     constructor(
+        raAluno: string,
         nome: string,
         sobrenome: string,
         dataNascimento: Date,
@@ -36,6 +37,7 @@ export class Aluno {
         email: string,
         celular: string
     ) {
+        this.raAluno = raAluno;
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.dataNascimento = dataNascimento;
@@ -126,15 +128,18 @@ export class Aluno {
             // Processa cada linha de resposta, criando objetos Aluno
             respostaBD.rows.forEach((linha: any) => {
                 const novoAluno = new Aluno(
+                    linha.ra,
                     linha.nome,
                     linha.sobrenome,
-                    linha.dataNascimento,
+                    linha.data_nascimento,
                     linha.endereco,
                     linha.email,
                     linha.celular
                 );
                 novoAluno.setIdAluno(linha.id_aluno);
                 listaDeAlunos.push(novoAluno);
+
+                console.log(novoAluno);
             });
 
             return listaDeAlunos;
@@ -156,7 +161,9 @@ export class Aluno {
             // Consulta SQL para inserir um novo aluno
             const queryInsertAluno = `INSERT INTO aluno (nome, sobrenome, data_nascimento, endereco, email, celular)
                                       VALUES
-                                      ('${aluno.getNome()}', 
+
+                                      ('
+                                       ${aluno.getNome()}', 
                                        '${aluno.getSobrenome()}', 
                                        '${aluno.getDataNascimento()}', 
                                        '${aluno.getEndereco()}',
@@ -164,8 +171,12 @@ export class Aluno {
                                        '${aluno.getCelular()}')
                                       RETURNING id_aluno;`;
 
+
+                                      console.log(queryInsertAluno)
             // Executa a consulta de inserção e armazena a resposta
             const respostaBD = await database.query(queryInsertAluno);
+
+            
 
             // Verifica se houve inserção bem-sucedida
             if (respostaBD.rowCount !== 0) {

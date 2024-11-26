@@ -7,7 +7,7 @@ interface EmprestimoDTO {
     idLivro: number,           // ID do livro emprestado.
     dataEmprestimo: Date,      // Data do início do empréstimo.
     dataDevolucao: Date,       // Data prevista para a devolução do livro.
-    statusEmprestimo: string   // Status atual do empréstimo (ex: "ativo", "finalizado").
+    statusLivroEmprestado: string   // Status atual do empréstimo (ex: "ativo", "finalizado").
 }
 
 /**

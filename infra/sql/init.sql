@@ -62,18 +62,18 @@ VALUES
 ('Gabriela', 'Guimarães', '2007-08-19', 'Rua Volei, 2028', 'gaby@volei.com', '16983932215'),
 ('Magic', 'Johnson', '2003-07-08', 'Rua NBA, 1999', 'magic@gmail.com', '16993932020');
 
-INSERT INTO Aluno (nome, sobrenome, data_nascimento, endereco, email, celular) 
+INSERT INTO Aluno (ra, nome, sobrenome, data_nascimento, endereco, email, celular) 
 VALUES 
-('Louise Lívia', 'Fabiana Castro', '1981-06-10', 'Av. Rogério Weber, 104', 'louise_livia_castro@webin.com.br', '69993290511'),
-('Manoel Ryan', 'Caldeira', '1962-05-03', 'Av. Amaral Peixoto, 162', 'manoel-caldeira99@gerdau.com.br', '21994747144'),
-('Enzo Edson', 'Monteiro', '1946-06-22', 'Rua Nove, 294', 'enzo.edson.monteiro@qualita.srv.br', '41993436455'),
-('Diogo Bento', 'Renan da Luz', '1957-05-06', 'Rua 5, 345', 'diogo_bento_daluz@rj.net', '92982421700'),
-('Sabrina Tatiane', 'da Silva', '2004-03-27', 'Rua Independência, 533', 'sabrina-dasilva80@clcimoveis.com.br', '92987376031'),
-('Flávia Elza Cristiane', 'Ferreira', '1949-03-11', 'Quadra P, 792', 'flavia.elza.ferreira@amordeconvite.com.br', '86982497431'),
-('Bernardo Hugo Jorge', 'da Mata', '1997-08-27', 'Rua Bassea Furmah, 332', 'bernardo-damata74@zignani.com.br', '21983841843'),
-('Fátima Esther Raquel', 'Fernandes', '1965-02-03', 'Av. Luiz Manoel, 653', 'fatima_fernandes@atrix.com.br', '88983282461'),
-('Levi Renato', 'Viana', '1962-02-24', 'Av. Rocha Viana, 732', 'levi-viana85@uniube.br', '68995736674'),
-('Isadora Isabelly', 'da Paz', '1990-02-11', 'Passagem Clodomiro, 868', 'isadora_isabelly_dapaz@ortovip.com.br', '91982002334');
+('2341','Louise Lívia', 'Fabiana Castro', '1981-06-10', 'Av. Rogério Weber, 104', 'louise_livia_castro@webin.com.br', '69993290511'),
+('1232','Manoel Ryan', 'Caldeira', '1962-05-03', 'Av. Amaral Peixoto, 162', 'manoel-caldeira99@gerdau.com.br', '21994747144'),
+('2234','Enzo Edson', 'Monteiro', '1946-06-22', 'Rua Nove, 294', 'enzo.edson.monteiro@qualita.srv.br', '41993436455'),
+('5353','Diogo Bento', 'Renan da Luz', '1957-05-06', 'Rua 5, 345', 'diogo_bento_daluz@rj.net', '92982421700'),
+('757','Sabrina Tatiane', 'da Silva', '2004-03-27', 'Rua Independência, 533', 'sabrina-dasilva80@clcimoveis.com.br', '92987376031'),
+('6665','Flávia Elza Cristiane', 'Ferreira', '1949-03-11', 'Quadra P, 792', 'flavia.elza.ferreira@amordeconvite.com.br', '86982497431'),
+('23','Bernardo Hugo Jorge', 'da Mata', '1997-08-27', 'Rua Bassea Furmah, 332', 'bernardo-damata74@zignani.com.br', '21983841843'),
+('123','Fátima Esther Raquel', 'Fernandes', '1965-02-03', 'Av. Luiz Manoel, 653', 'fatima_fernandes@atrix.com.br', '88983282461'),
+('543453','Levi Renato', 'Viana', '1962-02-24', 'Av. Rocha Viana, 732', 'levi-viana85@uniube.br', '68995736674'),
+('345436','Isadora Isabelly', 'da Paz', '1990-02-11', 'Passagem Clodomiro, 868', 'isadora_isabelly_dapaz@ortovip.com.br', '91982002334');
 
 -- LIVRO
 INSERT INTO Livro (titulo, autor, editora, ano_publicacao, isbn, quant_total, quant_disponivel, valor_aquisicao, status_livro_emprestado) 
