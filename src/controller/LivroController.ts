@@ -95,5 +95,71 @@ export class LivroController extends Livro {
         }
     
     }
-    
+    static async remover(req: Request, res: Response): Promise<any> {
+        try {
+            //recuperar o ID do livro a ser removido
+            const IdLivro = parseInt(req.params.idLivro as string);
+
+            //chamar a função do modelo e armazenar a resposta
+            const respostaModelo = await Livro.removerLivro(IdLivro);
+
+            //verifica se a resposta do modelo foi verdadeiro (true)
+            if (respostaModelo) {
+                //retorna um status 200 c0m uma mensagem de sucesso
+                return res.status(200).json({ mensagem: "O livro foi removido com sucesso!" })
+            } else {
+                //retorna um status 400 com uma mensagem de erro
+                return res.status(400).json({ mensagem: "Erro ao remover o livro. Entre em contato com o administrador do sistema" })
+            }
+
+        } catch (error) {
+            //lança uma mensagem de erro no console
+            console.log(`Erro ao remover um livro. ${error}`);
+
+            //retorna uma mensagem de erro à quem chamou a mensagem
+            return res.status(400).json({ mensagem: "Não foi possível remover o livro. Entre em contato com o administrador do sistema." });
+        }
+    }
+
+    static async atualizar(req: Request, res: Response): Promise<any> {
+        try {
+            //recupera as inoformações a serem atualizadas no corpo da requisição
+            const livroRecebido: LivroDTO = req.body;
+            //recupera o ID do livro a ser atualizado
+            const idLivroRecebido = parseInt(req.params.idLivro as string);
+
+            //instanciando um objeto do tipo livro
+            const livroAtualizado = new Livro(
+                livroRecebido.titulo,
+                livroRecebido.autor,
+                livroRecebido.editora,
+                livroRecebido.anoPublicacao,
+                livroRecebido.isbn,
+                livroRecebido.quantTotal,
+                livroRecebido.quantDisponivel,
+                livroRecebido.valorAquisicao,
+                livroRecebido.statusLivroEmprestado
+            );
+
+            //adicionando o ID no objetocarroAtualizado
+            livroAtualizado.setIdLivro(idLivroRecebido);
+
+            //chamando a função de atualizar o livro e guardando a resposta (booleano)
+            const respostaModelo = await Livro.atualizarLivro(livroAtualizado);
+
+            //verifica se a resposta é true
+            if (respostaModelo) {
+                //retorna um status 200 com uma mensagem de sucesso
+                return res.status(200).json({ mensagem: "Livro atualizado com sucesso!" })
+            } else {
+                //retorna um status 400 com uma mensagem de erro
+                return res.status(400).json({ mensagem: "Não foi possível atualizar o livro. Entre em contato com o administrador do sistema." });
+            }
+        } catch (error) {
+            //lança uma mensagem de erro no console
+            console.log(`Erro ao atualizar um livro. ${error}`);
+
+            return res.status(400).json({ mensagem: "Não foi possível atualizar o livro. Entre em contato com o administrador do sistema." });
+        }
+    }
 }

@@ -191,4 +191,71 @@ export class Aluno {
             return false;
         }
     }
+    static async removerAluno(idAluno: number): Promise<boolean> {
+        try {
+            //cria uma query para deletar um objeto do banco de dados, passando como parâmetro o ID
+            const queryDeleteAluno = `DELETE FROM aluno WHERE id_aluno = ${idAluno}`;
+
+            //executar a query e armazenar a resposta do banco de daodos
+            const respostaBD = await database.query(queryDeleteAluno);
+
+            //verifica se o número de linhas alteradas é diferente de 0
+            if (respostaBD.rowCount != 0) {
+                //exibe uma mensagem no console
+                console.log(`Aluno removido com sucesso. ID removido: ${idAluno}`);
+                //retorna true, indicando que o aluno foi removido
+                return true;
+            }
+
+            //retorna false, o que indica que o aluno foi removido
+            return true;
+            //trata qualquer erro que possa acontecer no caminho
+        } catch (error) {
+            //exibe uma mensagem de falha
+            console.log(`Erro ao remover aluno. Verifique os logs para mais detalhes.`);
+            //imprime o erro no console da API
+            console.log(error);
+            //retorna false, o que indica que a remoção não foi feita 
+            return false;
+        }
+    }
+
+    static async atualizarAluno(aluno: Aluno): Promise<boolean> {
+        try {
+            const queryUpdateAluno = `UPDATE aluno SET
+                                     nome = '${aluno.getNome()}',
+                                     sobrenome = '${aluno.getSobrenome()}',
+                                     data_nascimento = '${aluno.getDataNascimento()}',
+                                     endereco = '${aluno.getEndereco()}',
+                                     email = '${aluno.getEmail()}',
+                                     celular = '${aluno.getCelular()}'
+                                     WHERE id_aluno = ${aluno.getIdAluno()};`;
+
+                                     console.log(queryUpdateAluno);
+                                     
+
+            //executar a query e armazenar a resposta do banco de dados em uma variável
+            const respostaBD = await database.query(queryUpdateAluno);
+
+            //verifica se alguma linha foi alterada
+            if (respostaBD.rowCount != 0) {
+                //imprime uma mensagem de sucesso no console
+                console.log(`Aluno atualizado com sucesso! ID: ${aluno.getIdAluno()}`);
+                //retorna true, indicando que a query foi executada com sucesso
+                return true;
+            }
+
+            //retorna falso, indicando que a query não foi executada com sucesso
+            return false;
+
+        } catch (error) {
+            //exibe uma mensagem de falha
+            console.log(`Erro ao atualizar o aluno. Verifique os logs para mais detalhes.`);
+            //imprime o erro no console da API
+            console.log(error);
+            //retorna false, o que indica que a remoção não foi feita
+            return false;
+        }
+    }
+
 }

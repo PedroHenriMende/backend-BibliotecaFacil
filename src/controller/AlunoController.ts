@@ -88,4 +88,69 @@ export class AlunoController extends Aluno {
             return res.status(400).json({ mensagem: "Não foi possível cadastrar o aluno. Entre em contato com o administrador do sistema." });
         }
     }
+    static async remover(req: Request, res: Response): Promise<any> {
+        try {
+            //recuperar o ID do empréstimo a ser removido
+            const IdAluno = parseInt(req.params.idAluno as string);
+
+            //chamar a função do modelo e armazenar a resposta
+            const respostaModelo = await Aluno.removerAluno(IdAluno);
+
+            //verifica se a resposta do modelo foi verdadeiro (true)
+            if (respostaModelo) {
+                //retorna um status 200 c0m uma mensagem de sucesso
+                return res.status(200).json({ mensagem: "O aluno foi removido com sucesso!" })
+            } else {
+                //retorna um status 400 com uma mensagem de erro
+                return res.status(400).json({ mensagem: "Erro ao remover o aluno. Entre em contato com o administrador do sistema" })
+            }
+
+        } catch (error) {
+            //lança uma mensagem de erro no console
+            console.log(`Erro ao remover um aluno. ${error}`);
+
+            //retorna uma mensagem de erro à quem chamou a mensagem
+            return res.status(400).json({ mensagem: "Não foi possível remover o aluno. Entre em contato com o administrador do sistema." });
+        }
+    }
+
+    static async atualizar(req: Request, res: Response): Promise<any> {
+        try {
+            //recupera as inoformações a serem atualizadas no corpo da requisição
+            const alunoRecebido: AlunoDTO = req.body;
+            //recupera o ID do empréstimo a ser atualizado
+            const idAlunoRecebido = parseInt(req.params.idAluno as string);
+
+            //instanciando um objeto do tipo empréstimo
+            const alunoAtualizado = new Aluno(
+                alunoRecebido.ra,
+                alunoRecebido.nome,
+                alunoRecebido.sobrenome,
+                alunoRecebido.dataNascimento,
+                alunoRecebido.endereco,
+                alunoRecebido.email,
+                alunoRecebido.celular
+            );
+
+            //adicionando o ID no objetoEmprestimoAtualizado
+            alunoAtualizado.setIdAluno(idAlunoRecebido);
+
+            //chamando a função de atualizar o empréstimo e guardando a resposta (booleano)
+            const respostaModelo = await Aluno.atualizarAluno(alunoAtualizado);
+
+            //verifica se a resposta é true
+            if (respostaModelo) {
+                //retorna um status 200 com uma mensagem de sucesso
+                return res.status(200).json({ mensagem: "Aluno atualizado com sucesso!" })
+            } else {
+                //retorna um status 400 com uma mensagem de erro
+                return res.status(400).json({ mensagem: "Não foi possível atualizar o empréstimo. Entre em contato com o administrador do sistema." });
+            }
+        } catch (error) {
+            //lança uma mensagem de erro no console
+            console.log(`Erro ao atualizar um empréstimo. ${error}`);
+
+            return res.status(400).json({ mensagem: "Não foi possível atualizar o aluno. Entre em contato com o administrador do sistema." });
+        }
+    }
 }

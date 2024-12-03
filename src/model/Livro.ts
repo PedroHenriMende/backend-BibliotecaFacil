@@ -353,4 +353,64 @@ export class Livro {
             return false;
         }
     }
+    static async removerLivro(idLivro: Number): Promise<boolean> {
+        try {
+            const queryDeleteLivro = `DELETE FROM Livro WHERE id_livro = ${idLivro}`;
+
+            const respostaBD = await database.query(queryDeleteLivro);
+
+            if (respostaBD.rowCount != 0) {
+                console.log(`Livro removido com sucesso! ID removido: ${idLivro}`);
+                return true;
+            }
+
+            return false;
+
+        } catch (error) {
+            console.log(`Erro ao remover Livro. Verifique os logs para mais detalhes.`);
+            console.log(error);
+            return false;
+        }
+    }
+    static async atualizarLivro(livro: Livro): Promise<boolean> {
+        try {
+            // Query para fazer o update de um aluno no banco de dados
+            const queryUpdateLivro = `
+                    UPDATE Aluno SET
+                    (titulo ='${livro.getTitulo()}', 
+                     autor ='${livro.getAutor()}', 
+                     editora ='${livro.getEditora()}', 
+                     ano_publicacao ='${livro.getAnoPublicacao()}',
+                     isbn ='${livro.getIsbn()}',
+                     quant_total = ${livro.getQuantTotal()},
+                     quant_disponivel =${livro.getQuantDisponivel()},
+                     valor_aquisicao='${livro.getValorAquisicao()}',
+                     status_livro_emprestado='${livro.getStatusLivroEmprestado()}'
+                     WHERE id_livro = ${livro.getIdLivro};
+            `;
+
+            console.log(queryUpdateLivro);
+    
+            // Executa a query no banco e armazena a resposta
+            const respostaBD = await database.query(queryUpdateLivro);
+    
+            // verifica se a quantidade de linhas modificadas é diferente de 0
+            if (respostaBD.rowCount != 0) {
+                console.log(`Livro atualizado com sucesso! ID do Pedido: ${livro.getIdLivro()}`);
+                // true significa que a atualização foi bem sucedida
+                return true;
+            }
+            // false significa que a atualização NÃO foi bem sucedida.
+            return false;
+    
+            // tratando o erro
+        } catch (error) {
+            // imprime outra mensagem junto com o erro
+            console.log('Erro ao atualizar o Livro. Verifique os logs para mais detalhes.');
+            // imprime o erro no console
+            console.log(error);
+            // retorno um valor falso
+            return false;
+        }
+    }
 }

@@ -199,4 +199,97 @@ export class Emprestimo {
             return null;
         }
     }
+    // static async cadastrarEmprestimo(Emprestimo: Emprestimo): Promise<boolean> {
+    //     try {
+    //         // query para fazer insert de um livro no banco de dados
+    //         const queryInsertEmprestimo = `INSERT INTO Emprestimo (titulo, autor, editora, ano_publicacao, isbn, quant_total, quant_disponivel, valor_aquisicao, status_livro_emprestado)
+    //                                 VALUES
+    //                                 ('${livro.getTitulo()}', 
+    //                                 '${livro.getAutor()}', 
+    //                                 '${livro.getEditora()}', 
+    //                                 '${livro.getAnoPublicacao()}',
+    //                                 '${livro.getIsbn()}',
+    //                                 '${livro.getQuantTotal()}',
+    //                                 '${livro.getQuantDisponivel()}',
+    //                                 '${livro.getValorAquisicao()}',
+    //                                 '${livro.getStatusLivroEmprestado()}')
+    //                                 RETURNING id_livro;`;
+
+    //         //executa a query no banco e armazena a resposta
+    //         const respostaBD = await database.query(queryInsertEmprestimo);
+
+    //         // verifica se a quantidade de linhas modificadas é diferente de 0
+    //         if (respostaBD.rowCount != 0) {
+    //             console.log(`Emprestimo cadastrado com sucesso! ID do livro: ${respostaBD.rows[0].id_Emprestimo}`);
+    //             // true significa que o cadastro foi feito
+    //             return true;
+    //         }
+
+    //         // false significa que o cadastro NÃO foi feito.
+    //         return false;
+    //         // tratando o erro
+    //     } catch (error) {
+    //         // imprime outra mensagem junto com o erro
+    //         console.log('Erro ao cadastrar o Emprestimo. Verifique os logs para mais detalhes.');
+    //         // imprime o erro no console
+    //         console.log(error);
+    //         // retorno um valor falso
+    //         return false;
+    //     }
+    // }
+    static async removerEmprestimo(idEmprestimo: Number): Promise<boolean> {
+        try {
+            const queryDeleteEmprestimo = `DELETE FROM Emprestimo WHERE id_emprestimo = ${idEmprestimo}`;
+
+            const respostaBD = await database.query(queryDeleteEmprestimo);
+
+            if (respostaBD.rowCount != 0) {
+                console.log(`Emprestimo removido com sucesso! ID removido: ${idEmprestimo}`);
+                return true;
+            }
+
+            return false;
+
+        } catch (error) {
+            console.log(`Erro ao remover o Emprestimo. Verifique os logs para mais detalhes.`);
+            console.log(error);
+            return false;
+        }
+    }
+    static async atualizarEmprestimo(emprestimo: Emprestimo): Promise<boolean> {
+        try {
+            // Query para fazer o update de um aluno no banco de dados
+            const queryUpdateEmprestimo = `
+                    UPDATE Emprestimo SET
+                    id_aluno = ${emprestimo.getIdAluno},
+                    id_livro = ${emprestimo.getIdLivro},
+                    data_emprestimo = ${emprestimo.getDataEmprestimo},
+                    data_devolucao = ${emprestimo.getDataDevolucao},
+                    status_emprestimo = '${emprestimo.getStatusEmprestimo}'
+                    WHERE id_emprestimo = ${emprestimo.getIdEmprestimo};
+            `;
+    
+            console.log(queryUpdateEmprestimo);
+            // Executa a query no banco e armazena a resposta
+            const respostaBD = await database.query(queryUpdateEmprestimo);
+    
+            // verifica se a quantidade de linhas modificadas é diferente de 0
+            if (respostaBD.rowCount != 0) {
+                console.log(`Emprestimo atualizado com sucesso! ID do Pedido: ${emprestimo.getIdEmprestimo()}`);
+                // true significa que a atualização foi bem sucedida
+                return true;
+            }
+            // false significa que a atualização NÃO foi bem sucedida.
+            return false;
+    
+            // tratando o erro
+        } catch (error) {
+            // imprime outra mensagem junto com o erro
+            console.log('Erro ao atualizar o Emprestimo. Verifique os logs para mais detalhes.');
+            // imprime o erro no console
+            console.log(error);
+            // retorno um valor falso
+            return false;
+        }
+    }
 }
